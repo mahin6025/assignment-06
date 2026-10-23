@@ -39,11 +39,10 @@ export default function MyPlan() {
         }
     };
 
-    // Calculate live summary metrics
+
     const totalExercises = planItems.length;
     const totalMinutes = planItems.reduce((acc, item) => acc + parseInt(item.duration || 0), 0);
-    const totalCalories = planItems.reduce((acc, item) => acc + parseInt(item.calories || 0), 0);
-
+    const totalCalories = planItems.reduce((acc, item) => acc + parseInt(item.calories || item.calorie || 0), 0);
     const currentList = activeTab === "plan" ? planItems : savedItems;
 
     return (
@@ -53,13 +52,13 @@ export default function MyPlan() {
 
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-grow w-full space-y-8">
 
-                {/* Header */}
+
                 <div>
                     <h1 className="text-3xl font-black text-white uppercase tracking-tight">MY PLAN</h1>
                     <p className="text-gray-400 text-sm mt-1">Cap of five lifts for today. Finish them, then load more[cite: 2].</p>
                 </div>
 
-                {/* Metrics Summary Row */}
+
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <div className="bg-[#131826] border border-gray-800 p-5 rounded-2xl flex items-center justify-between">
                         <div>
@@ -90,7 +89,7 @@ export default function MyPlan() {
                     </div>
                 </div>
 
-                {/* Tabs */}
+
                 <div className="flex border-b border-gray-800 gap-8">
                     <button
                         onClick={() => setActiveTab("plan")}
@@ -106,7 +105,7 @@ export default function MyPlan() {
                     </button>
                 </div>
 
-                {/* Content List */}
+
                 {currentList.length === 0 ? (
                     <div className="bg-[#131826] border border-gray-800 rounded-2xl p-12 text-center space-y-4 max-w-lg mx-auto my-12">
                         <h3 className="text-xl font-black text-white uppercase">NOTHING HERE YET</h3>
@@ -148,7 +147,7 @@ export default function MyPlan() {
                                                 </div>
                                                 <div className="flex items-center gap-1">
                                                     <Flame className="w-3 h-3 text-orange-400" />
-                                                    <span>{item.calories}</span>
+                                                    <span>{item.calorie}</span>
                                                 </div>
                                                 <div className="flex items-center gap-1">
                                                     <Star className="w-3 h-3 text-yellow-400 fill-yellow-400" />
@@ -158,7 +157,7 @@ export default function MyPlan() {
                                         </div>
                                     </div>
 
-                                    {/* Actions */}
+
                                     <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
                                         <Link
                                             href={`/workout/${itemId}`}
